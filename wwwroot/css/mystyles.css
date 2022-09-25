@@ -1,2 +1,40 @@
 ﻿body {
 }
+
+/* The following material-icon related rules were extracted from 
+    https://developers.google.com/fonts/docs/material_icons#styling_icons_in_material_design */
+
+/* Rules for sizing the icon. */
+[class^="material-icons"].md-18 {
+    font-size: 18px;
+}
+
+[class^="material-icons"].md-24 {
+    font-size: 24px;
+}
+
+[class^="material-icons"].md-36 {
+    font-size: 36px;
+}
+
+[class^="material-icons"].md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+[class^="material-icons"].md-dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+[class^="material-icons"].md-dark.md-inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+[class^="material-icons"].md-light {
+    color: rgba(255, 255, 255, 1);
+}
+
+[class^="material-icons"].md-light.md-inactive {
+    color: rgba(255, 255, 255, 0.3);
+}
