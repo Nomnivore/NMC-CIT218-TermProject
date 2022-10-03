@@ -14,6 +14,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<EventsContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
