@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TermProject.Models
 {
@@ -29,6 +30,10 @@ namespace TermProject.Models
 
         [Range(1, 9999)]
         public int? MaxAttendees { get; set; }
-        
+
+        // Group is optional
+        public int? GroupId { get; set; }
+        public virtual Group Group { get; set; }
+
     }
 }
