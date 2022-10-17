@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TermProject.Data;
 
@@ -11,9 +12,10 @@ using TermProject.Data;
 namespace TermProject.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    partial class EventsContextModelSnapshot : ModelSnapshot
+    [Migration("20221017015801_AddNullableToGroupDesc")]
+    partial class AddNullableToGroupDesc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,6 @@ namespace TermProject.Migrations
                             Id = 1,
                             Description = "Come watch an awesome movie with us!",
                             EndDateTime = new DateTime(2022, 10, 22, 23, 0, 0, 0, DateTimeKind.Local),
-                            GroupId = 3,
                             Location = "The movie theater",
                             MaxAttendees = 50,
                             Name = "Movie Night",
@@ -79,7 +80,6 @@ namespace TermProject.Migrations
                             Id = 2,
                             Description = "A 3-day event loaded with speakers, Q&A's, networking opportunities, and more! You won't want to miss this.",
                             EndDateTime = new DateTime(2022, 10, 28, 20, 0, 0, 0, DateTimeKind.Local),
-                            GroupId = 1,
                             Location = "Large conference hall in Big City",
                             Name = "CIT Conference",
                             StartDateTime = new DateTime(2022, 10, 26, 11, 0, 0, 0, DateTimeKind.Local)
@@ -124,13 +124,6 @@ namespace TermProject.Migrations
                             AllowJoin = true,
                             Description = "It should be known - where there's us, there's pizza.",
                             Name = "PizzaSocial"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AllowJoin = true,
-                            Description = "Live sleep breathe popcorn",
-                            Name = "Movie Madness"
                         });
                 });
 
