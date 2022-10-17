@@ -20,6 +20,7 @@ namespace TermProject.Models
         // whether other users can join the group or not.
         // when user model is implemented, only group members
         // can post events, but anyone can attend an event
+        [Display(Name="Can Join?")]
         [Required]
         public bool AllowJoin { get; set; }
 
