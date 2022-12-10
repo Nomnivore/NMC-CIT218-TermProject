@@ -3,6 +3,8 @@ using TermProject.Models;
 
 namespace TermProject.Data
 {
+    // TODO: Extend IdentityDbContext and replace ApplicationDbContext
+    // in order to model relationship between EventAttendance and IdentityUser
     public class EventsContext : DbContext
     {
         public EventsContext(DbContextOptions<EventsContext> options)
@@ -11,6 +13,7 @@ namespace TermProject.Data
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<EventAttendance> Attendances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,6 +69,9 @@ namespace TermProject.Data
                     GroupId = 1,
                 }
             );
+
+            builder.Entity<EventAttendance>()
+                .HasKey(e => new { e.EventId, e.UserId });
         }
     }
 }
