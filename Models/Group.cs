@@ -12,7 +12,7 @@ namespace TermProject.Models
         [Required]
         [MinLength(5, ErrorMessage = "Name must be at least 5 characters long")]
         [StringLength(50, ErrorMessage = "Name must not be longer than 50 characters")]
-        [RegularExpression("^[a - zA - Z0 - 9_] *$)", ErrorMessage = "Name must be alphanumeric")]
+        [RegularExpression("^[a - zA - Z0 - 9_] *$", ErrorMessage = "Name must be alphanumeric")]
         public string Name { get; set; }
 
         // Foreign key to Group Owner (User) here
