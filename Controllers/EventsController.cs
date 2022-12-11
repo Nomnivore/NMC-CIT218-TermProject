@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,30 @@ namespace TermProject.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? sort, string? search)
         {
-              return View(await _context.Events.Include(e => e.Group).ToListAsync());
+            ViewBag.Sort = sort;
+            ViewBag.Search = search;
+            var events = from e in _context.Events.Include(e => e.Group) select e;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                events = events.Where(e => e.Name.Contains(search));
+            }
+
+            switch (sort)
+            {
+                case "date_asc":
+                    events = events.OrderBy(e => e.StartDateTime);
+                    break;
+                default:
+                case "date_desc":
+                    events = events.OrderByDescending(e => e.StartDateTime);
+                    break;
+            }
+
+            return View(await events.ToListAsync());
+
         }
 
         // GET: Events/Details/5
@@ -44,8 +66,10 @@ namespace TermProject.Controllers
         }
 
         // GET: Events/Create
+        [Authorize]
         public IActionResult Create()
         {
+            ViewData["GroupId"] = new SelectList(_context.Groups.Where(g => g.AllowJoin), "Id", "Name");
             return View();
         }
 
@@ -54,7 +78,8 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StartDateTime,EndDateTime,Location,Description,MaxAttendees")] Event @event)
+        [Authorize]
+        public async Task<IActionResult> Create([Bind("Id,Name,StartDateTime,EndDateTime,Location,Description,MaxAttendees,GroupId")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +91,7 @@ namespace TermProject.Controllers
         }
 
         // GET: Events/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Events == null)
@@ -78,6 +104,7 @@ namespace TermProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["GroupId"] = new SelectList(_context.Groups.Where(g => g.AllowJoin), "Id", "Name");
             return View(@event);
         }
 
@@ -86,7 +113,8 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartDateTime,EndDateTime,Location,Description,MaxAttendees")] Event @event)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,StartDateTime,EndDateTime,Location,Description,MaxAttendees,GroupId")] Event @event)
         {
             if (id != @event.Id)
             {
@@ -117,6 +145,7 @@ namespace TermProject.Controllers
         }
 
         // GET: Events/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Events == null)
@@ -137,6 +166,7 @@ namespace TermProject.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Events == null)

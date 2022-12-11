@@ -49,8 +49,8 @@ namespace TermProject.Controllers
         // GET: EventAttendance/Create
         public IActionResult Create()
         {
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Location");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 

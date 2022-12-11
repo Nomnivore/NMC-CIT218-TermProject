@@ -19,6 +19,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="GroupId" class="control-label">Group</label>
+                <select asp-for="GroupId" class="form-control" asp-items="ViewBag.GroupId"><option value="@null">No Group</option></select>
+                <span asp-validation-for="GroupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="StartDateTime" class="control-label"></label>
                 <input asp-for="StartDateTime" class="form-control" />
                 <span asp-validation-for="StartDateTime" class="text-danger"></span>

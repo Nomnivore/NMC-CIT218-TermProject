@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form id="searchForm" onsubmit="return false;" >
+    <select name="sort" id="sort" class="form-control">
+        <option value="date_desc">Oldest</option>
+        <option value="date_asc">Newest</option>
+    </select>
+    <input name="search" id="search" class="form-control" value="@ViewBag.Search" />
+    <button type="submit" class="btn btn-outline-primary">Go</button>
+</form>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -69,3 +77,17 @@
 }
     </tbody>
 </table>
+
+
+<script type="text/javascript">
+    function handleSubmit(ev) {
+        ev.preventDefault();
+        const formData = new FormData(ev.target);
+        const asString = new URLSearchParams(formData).toString();
+        const href = "@Url.Action("Index", "Events")" + "?" + asString;
+        window.location.href = href;
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", handleSubmit)
+
+</script>
