@@ -262,7 +262,7 @@ namespace TermProject.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
 
                     b.HasData(
                         new
@@ -303,7 +303,7 @@ namespace TermProject.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("TermProject.Models.Group", b =>
@@ -329,7 +329,7 @@ namespace TermProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
 
                     b.HasData(
                         new

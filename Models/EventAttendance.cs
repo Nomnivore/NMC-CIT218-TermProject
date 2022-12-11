@@ -15,6 +15,7 @@ namespace TermProject.Models
         public virtual Event Event { get; set; }
         public virtual IdentityUser User { get; set; }
 
+        [Required]
         public StatusEnum Status { get; set; }
     }
 
