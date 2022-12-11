@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TermProject.Models
 {
-    // TODO: Run migrations and scaffold for this model AFTER merging DbContexts
     public class EventAttendance
     {
         [Required]

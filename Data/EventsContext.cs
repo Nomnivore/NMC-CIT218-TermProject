@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TermProject.Models;
 
 namespace TermProject.Data
 {
-    // TODO: Extend IdentityDbContext and replace ApplicationDbContext
-    // in order to model relationship between EventAttendance and IdentityUser
-    public class EventsContext : DbContext
+    public class EventsContext : IdentityDbContext
     {
         public EventsContext(DbContextOptions<EventsContext> options)
             : base(options)
