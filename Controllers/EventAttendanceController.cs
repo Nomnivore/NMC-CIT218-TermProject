@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace TermProject.Controllers
         }
 
         // GET: EventAttendance/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
@@ -59,6 +61,7 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,EventId,UserId,Status")] EventAttendance eventAttendance)
         {
             if (ModelState.IsValid)
@@ -73,6 +76,7 @@ namespace TermProject.Controllers
         }
 
         // GET: EventAttendance/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Attendances == null)
@@ -95,6 +99,7 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,EventId,UserId,Status")] EventAttendance eventAttendance)
         {
             if (id != eventAttendance.Id)
@@ -128,6 +133,7 @@ namespace TermProject.Controllers
         }
 
         // GET: EventAttendance/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Attendances == null)
@@ -150,6 +156,7 @@ namespace TermProject.Controllers
         // POST: EventAttendance/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Attendances == null)
