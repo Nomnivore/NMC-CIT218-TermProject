@@ -12,7 +12,7 @@ namespace TermProject.Models
         [Required]
         [MinLength(5, ErrorMessage = "Name must be at least 5 characters long")]
         [StringLength(50, ErrorMessage = "Name must not be longer than 50 characters")]
-        [RegularExpression("^[a-zA-Z0-9_]*$", ErrorMessage = "Name must be alphanumeric")]
+        [RegularExpression("^[a-zA-Z0-9 _]*$", ErrorMessage = "Name must be alphanumeric")]
         public string Name { get; set; }
 
         // Foreign key to Event Organizer (User) here
@@ -20,11 +20,13 @@ namespace TermProject.Models
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Start Date/Time")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}")]
         public DateTime StartDateTime { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "End Date/Time")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy hh:mm tt}")]
         public DateTime EndDateTime { get; set; }
 
         [Required]

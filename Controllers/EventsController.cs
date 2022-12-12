@@ -34,11 +34,11 @@ namespace TermProject.Controllers
 
             switch (sort)
             {
-                case "date_asc":
+                case "date_desc":
                     events = events.OrderBy(e => e.StartDateTime);
                     break;
                 default:
-                case "date_desc":
+                case "date_asc":
                     events = events.OrderByDescending(e => e.StartDateTime);
                     break;
             }
