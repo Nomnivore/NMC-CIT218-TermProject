@@ -42,7 +42,7 @@ namespace TermProject.Models
 
         // Group is optional
         public int? GroupId { get; set; }
-        public virtual Group Group { get; set; }
+        public virtual Group? Group { get; set; }
 
     }
 }

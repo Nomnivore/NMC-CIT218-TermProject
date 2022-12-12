@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TermProject.Migrations
 {
-    public partial class MergeContexts : Migration
+    public partial class FixDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,13 +197,15 @@ namespace TermProject.Migrations
                 name: "Attendances",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attendances", x => new { x.EventId, x.UserId });
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Attendances_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -281,6 +283,11 @@ namespace TermProject.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendances_EventId",
+                table: "Attendances",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_UserId",

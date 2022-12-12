@@ -37,7 +37,7 @@ namespace TermProject.Controllers
             var eventAttendance = await _context.Attendances
                 .Include(e => e.Event)
                 .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.EventId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (eventAttendance == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,UserId,Status")] EventAttendance eventAttendance)
+        public async Task<IActionResult> Create([Bind("Id,EventId,UserId,Status")] EventAttendance eventAttendance)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace TermProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Location", eventAttendance.EventId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", eventAttendance.UserId);
+            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View(eventAttendance);
         }
 
@@ -85,8 +85,8 @@ namespace TermProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Location", eventAttendance.EventId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", eventAttendance.UserId);
+            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View(eventAttendance);
         }
 
@@ -95,9 +95,9 @@ namespace TermProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,UserId,Status")] EventAttendance eventAttendance)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EventId,UserId,Status")] EventAttendance eventAttendance)
         {
-            if (id != eventAttendance.EventId)
+            if (id != eventAttendance.Id)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace TermProject.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventAttendanceExists(eventAttendance.EventId))
+                    if (!EventAttendanceExists(eventAttendance.Id))
                     {
                         return NotFound();
                     }
@@ -122,8 +122,8 @@ namespace TermProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Location", eventAttendance.EventId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", eventAttendance.UserId);
+            ViewData["EventId"] = new SelectList(_context.Events, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View(eventAttendance);
         }
 
@@ -138,7 +138,7 @@ namespace TermProject.Controllers
             var eventAttendance = await _context.Attendances
                 .Include(e => e.Event)
                 .Include(e => e.User)
-                .FirstOrDefaultAsync(m => m.EventId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (eventAttendance == null)
             {
                 return NotFound();
@@ -168,7 +168,7 @@ namespace TermProject.Controllers
 
         private bool EventAttendanceExists(int id)
         {
-          return _context.Attendances.Any(e => e.EventId == id);
+          return _context.Attendances.Any(e => e.Id == id);
         }
     }
 }

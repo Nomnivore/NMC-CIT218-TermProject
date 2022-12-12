@@ -40,7 +40,9 @@ namespace TermProject.Controllers
                 return NotFound();
             }
 
-            return View(@group);
+            var @event = await _context.Events.Where(e => e.GroupId == @group.Id).OrderByDescending(e => e.StartDateTime).FirstOrDefaultAsync();
+
+            return View(new GroupWithEvent { Event = @event, Group = @group});
         }
 
         // GET: Groups/Create

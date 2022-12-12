@@ -12,8 +12,8 @@ using TermProject.Data;
 namespace TermProject.Migrations
 {
     [DbContext(typeof(EventsContext))]
-    [Migration("20221211013240_MergeContexts")]
-    partial class MergeContexts
+    [Migration("20221212040615_FixDatabase")]
+    partial class FixDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -292,16 +292,25 @@ namespace TermProject.Migrations
 
             modelBuilder.Entity("TermProject.Models.EventAttendance", b =>
                 {
-                    b.Property<int>("EventId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("EventId", "UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("UserId");
 

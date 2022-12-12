@@ -1,36 +1,36 @@
-﻿@model TermProject.Models.Group
+﻿@model TermProject.Models.GroupWithEvent
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(modelItem => Model.Group.Name)</h1>
 
 <div>
-    <h4>Group</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AllowJoin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AllowJoin)
-        </dd>
-    </dl>
+    <h3>About</h3>
+    <p class="col-md-6">@Html.DisplayFor(modelItem => Model.Group.Description)</p>
+
+    <div class="my-5">
+        <h2>Featured Event</h2>
+        @if (Model.Event != null)
+        {
+        <div class="card" style="width:fit-content">
+            <div class="card-body">
+                    <h4 class="card-title">@Html.DisplayFor(modelItem => Model.Event.Name)</h4>
+                    <h5 class="card-subtitle mb-2">@Html.DisplayFor(modelItem => Model.Event.Location)</h5>
+                    <h6 class="card-text mb-3">@Html.DisplayFor(modelItem => Model.Event.StartDateTime) - @Html.DisplayFor(modelItem => Model.Event.EndDateTime)</h6>
+                    <a asp-area="" asp-controller="Events" asp-action="Details" asp-route-id="@Model.Event.Id" class="btn btn-secondary me-3 w-100">View Event</a>
+            </div>
+        </div>
+        } else
+        {
+            <p>This group has no featured events.</p>
+        }
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="d-flex gap-3">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Group.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Group.Id" class="btn btn-outline-danger">Delete</a>
 </div>

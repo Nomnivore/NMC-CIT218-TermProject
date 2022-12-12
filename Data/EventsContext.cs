@@ -69,8 +69,8 @@ namespace TermProject.Data
                 }
             );
 
-            builder.Entity<EventAttendance>()
-                .HasKey(e => new { e.EventId, e.UserId });
+            //builder.Entity<EventAttendance>()
+            //    .HasKey(e => new { e.EventId, e.UserId });
         }
     }
 }
